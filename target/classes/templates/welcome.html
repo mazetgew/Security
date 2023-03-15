@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>User page</title>
 </head>
-<body>
-<h1>Welcome!</h1>
-<a th:href="@{/login}">Login</a>
+<body style="height: 100vh">
+<header class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark">
+    <div class="container-fluid d-flex align-items-center">
+        <h1 class="d-flex align-items-center text-white">Welcome!</h1>
+    </div>
+</header>
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <div class="col-md-12 g-0 py-3">
+            <a class="btn btn-success" href="/login" role="button">
+                <h2 class="text-center">Login</h2>
+            </a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

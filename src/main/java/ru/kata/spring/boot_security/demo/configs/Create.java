@@ -29,8 +29,8 @@ public class Create {
         roleService.addRole(roleUser);
         roleService.addRole(roleAdmin);
 
-        User user = new User("user", "111", "User", "User");
-        User admin = new User("admin", "111", "Admin", "Admin");
+        User user = new User("user", "user@mail.com", "111", "Userfirst", "Userlast", 30);
+        User admin = new User("admin", "admin@mail.com", "111", "Adminfirst", "Adminlast", 100);
 
         Set<Role> userRoleSet = new HashSet<>();
         userRoleSet.add(roleUser);

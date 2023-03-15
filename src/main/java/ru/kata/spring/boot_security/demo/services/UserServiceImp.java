@@ -56,7 +56,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     public void update(User user) {
-        if (!userRepository.getById(user.getId()).getPassword().equals(user.getPassword())) {
+        if (!userRepository.getById(user.getId()).getPassword().equals(user.getPassword()) && (user.getPassword() != null)) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         userRepository.save(user);
@@ -65,6 +65,11 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public void delete(User user) {
         userRepository.delete(user);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 
 }

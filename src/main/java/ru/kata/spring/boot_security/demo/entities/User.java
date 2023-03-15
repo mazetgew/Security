@@ -18,6 +18,9 @@ public class User implements UserDetails {
     @Column(name = "username", unique = true)
     private String username;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "password")
     private String password;
 
@@ -26,14 +29,19 @@ public class User implements UserDetails {
 
     @Column(name = "last_name")
     private String lastName;
+    @Column(name = "age")
+    private int age;
 
-    public User() {}
+    public User() {
+    }
 
-    public User(String username, String password, String firstName, String lastName) {
+    public User(String username, String email, String password, String firstName, String lastName, int age) {
         this.username = username;
+        this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
     }
 
     public Long getId() {
@@ -51,6 +59,14 @@ public class User implements UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -78,6 +94,15 @@ public class User implements UserDetails {
         this.lastName = lastName;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "conn",
@@ -88,6 +113,15 @@ public class User implements UserDetails {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public String getStringRoles() {
+        StringBuffer userRoles = new StringBuffer();
+        for (Role role : roles) {
+            userRoles.append(role.getName().replaceAll("ROLE_", ""));
+            userRoles.append(" ");
+        }
+        return userRoles.toString();
     }
 
     public void setRoles(Set<Role> roles) {

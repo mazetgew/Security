@@ -8,6 +8,8 @@ import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -22,11 +24,15 @@ public class AdminController {
     }
 
     @GetMapping
-    public String admin() {
-        return "admin";
+    public String admin(Principal principal, Model model) {
+        model.addAttribute("users", userService.userList());
+        model.addAttribute("admin", userService.findByUsername(principal.getName()));
+        model.addAttribute("newUser", new User());
+        model.addAttribute("roles", roleService.roleList());
+        return "admin-page";
     }
 
-    @GetMapping("/allUsers")
+    /* @GetMapping("/allUsers")
     public String allUsers(Model model) {
         model.addAttribute("users", userService.userList());
         return "allUsers";
@@ -37,29 +43,35 @@ public class AdminController {
         model.addAttribute("user", userService.findById(id));
         model.addAttribute("roles", roleService.roleList());
         return "edit";
-    }
+    } */
 
-    @PostMapping("/user/{id}")
+    @PatchMapping("/{id}")
     public String patch(@ModelAttribute("user") User user) {
         userService.update(user);
-        return "redirect:/admin/allUsers";
+        return "redirect:/admin";
     }
 
-    @GetMapping("/addUser")
+    /* @GetMapping("/addUser")
     public String addUser(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("roles", roleService.roleList());
         return "addUser";
-    }
+    } */
 
-    @PostMapping("/addUser")
-    public String add(@ModelAttribute("user") User user) {
+    @PostMapping
+    public String add(@ModelAttribute("newUser") User user) {
         userService.add(user);
-        return "redirect:/admin/allUsers";
+        return "redirect:/admin";
     }
 
-    @GetMapping("/user/{id}/delete")
+    /* @GetMapping("/user/{id}/delete")
     public String delete(@ModelAttribute("user") User user) {
         userService.delete(user);
         return "redirect:/admin/allUsers";
+    } */
+
+    @DeleteMapping("/{id}")
+    public String deleteById(@PathVariable("id") Long id) {
+        userService.deleteById(id);
+        return "redirect:/admin";
     }
 }
