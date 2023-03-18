@@ -1,4 +1,4 @@
-const url = '/api/admin/users/'
+const url = "/api/admin/"
 
 const dbRoles = [ {
         id: 1,
@@ -11,24 +11,23 @@ const dbRoles = [ {
 
 const showNavbarInfo = (user) => {
     const navbarInfo = document.getElementById('navbarInfo')
-    let result = `
+    navbarInfo.innerHTML = `
                 <span class="navbar-brand">
                     <strong>${user.username}</strong>
                     with roles:
-                    <span>${user.rolesToString}</span>
+                    <span>${user.getStringRoles}</span>
                 </span>
                 <form action="/logout" method="POST">
                     <button type="submit" class="btn btn-dark">Logout</button>
                 </form>
                 `
-    navbarInfo.innerHTML = result
 }
 fetch('/api/user/')
     .then(response => response.json())
     .then(data => showNavbarInfo(data))
     .catch(error => console.log(error))
 
-// + All users info tab
+// Таблица
 let usersInfo = ''
 const showUsers = (users) => {
     const container = document.querySelectorAll('tbody')[0]
@@ -41,7 +40,7 @@ const showUsers = (users) => {
                     <td>${user.lastName}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>       
-                    <td>${user.rolesToString}</td>   
+                    <td>${user.getStringRoles}</td>   
                     <td class="text text-white"><a class="btnEdit btn btn-info">Edit</a></td>  
                     <td class="text text-white"><a class="btnDelete btn btn-danger">Delete</a></td>
                 </tr>
@@ -63,7 +62,7 @@ const reloadShowUsers = () => {
         })
 }
 
-// + User info tab
+// Информация пользователя
 let userInfo = ''
 const showUser = (user) => {
     const container = document.querySelectorAll('tbody')[1]
@@ -75,7 +74,7 @@ const showUser = (user) => {
                     <td>${user.lastName}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>       
-                    <td>${user.rolesToString}</td>   
+                    <td>${user.getStringRoles}</td>   
                 </tr>
                 `
     container.innerHTML = userInfo
@@ -86,7 +85,7 @@ fetch('/api/user/')
     .catch(error => console.log(error))
 
 
-// про создание нового юзера
+// Создание нового пользователя
 const formNew = document.getElementById('newUserForm')
 const username = document.getElementById('username')
 const firstName = document.getElementById('firstName')
@@ -140,7 +139,7 @@ formNew.addEventListener('submit', (e) => {
     $('.nav-tabs a[href="#usersTable"]').tab('show')
 })
 
-// про редактирование юзера
+// Редактирование пользователя
 const modalEdit = new bootstrap.Modal(document.getElementById('modalEdit'))
 const editForm = document.getElementById('modalEdit')
 const usernameEdit = document.getElementById('usernameEdit')
@@ -218,7 +217,7 @@ editForm.addEventListener('submit', (e) => {
     modalEdit.hide()
 })
 
-// про удаление юзера
+// Удаление пользователя
 const modalDelete = new bootstrap.Modal(document.getElementById('modalDelete'))
 const deleteForm = document.getElementById('modalDelete')
 const idDelete = document.getElementById('idDelete')
