@@ -22,7 +22,6 @@ public class UserRestController {
 
     @GetMapping
     public User getUser(Principal principal) {
-        System.out.println("Передан пользователь");
         return userService.findByUsername(principal.getName());
     }
 }
