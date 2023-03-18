@@ -6,7 +6,7 @@ const showNavbarInfoUser = (user) => {
                 <span class="navbar-brand">
                     <strong>${user.username}</strong>
                     with roles:
-                    <span>${user.getStringRoles}</span>
+                    <span>${user.rolesToString}</span>
                 </span>
                 <form action="/logout" method="POST">
                     <button type="submit" class="btn btn-dark">Logout</button>
@@ -31,7 +31,7 @@ const showUserInfo = (user) => {
                     <td>${user.lastName}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>       
-                    <td>${user.getStringRoles}</td>
+                    <td>${user.rolesToString}</td>
                 </tr>
                 `
     container.innerHTML = userPageInfo

@@ -9,7 +9,6 @@ const dbRoles = [ {
         name: "ROLE_ADMIN"
     }]
 
-//User navbar
 const showNavbarInfo = (user) => {
     const navbarInfo = document.getElementById('navbarInfo')
     let result = `
@@ -36,9 +35,12 @@ const showUsers = (users) => {
     users.forEach(user => {
         usersInfo += `
                 <tr>
-                    <td>${user.id}</td>   
-                    <td>${user.username}</td>   
-                    <td>${user.age_of_birth}</td>                  
+                    <td>${user.id}</td>
+                    <td>${user.username}</td>
+                    <td>${user.firstName}</td>  
+                    <td>${user.lastName}</td>
+                    <td>${user.age}</td>
+                    <td>${user.email}</td>       
                     <td>${user.rolesToString}</td>   
                     <td class="text text-white"><a class="btnEdit btn btn-info">Edit</a></td>  
                     <td class="text text-white"><a class="btnDelete btn btn-danger">Delete</a></td>
@@ -67,9 +69,12 @@ const showUser = (user) => {
     const container = document.querySelectorAll('tbody')[1]
     userInfo += `
                 <tr>
-                    <td>${user.id}</td>   
-                    <td>${user.username}</td>   
-                    <td>${user.age_of_birth}</td>                  
+                    <td>${user.id}</td>
+                    <td>${user.username}</td>
+                    <td>${user.firstName}</td>  
+                    <td>${user.lastName}</td>
+                    <td>${user.age}</td>
+                    <td>${user.email}</td>       
                     <td>${user.rolesToString}</td>   
                 </tr>
                 `
@@ -84,7 +89,10 @@ fetch('/api/user/')
 // про создание нового юзера
 const formNew = document.getElementById('newUserForm')
 const username = document.getElementById('username')
-const age_of_birth = document.getElementById('age')
+const firstName = document.getElementById('firstName')
+const lastName = document.getElementById('lastName')
+const age = document.getElementById('age')
+const email = document.getElementById('email')
 const password = document.getElementById('password')
 const roles = document.getElementById('roles')
 let option = ''
@@ -92,7 +100,10 @@ let option = ''
 btnNewUser.addEventListener('click', () => {
     console.log('btnNewUser click')
     username.value = ''
-    age_of_birth.value = ''
+    firstName.value = ''
+    lastName.value = ''
+    age.value = ''
+    email.value = ''
     password.value = ''
     roles.innerHTML = `
                         <option value="${dbRoles[0].id}">${dbRoles[0].name}</option>
@@ -105,7 +116,7 @@ formNew.addEventListener('submit', (e) => {
     e.preventDefault()
     let listRoles = roleArray(document.getElementById('roles'))
     console.log(
-        username.value, age_of_birth.value, password.value, listRoles
+        username.value, firstName.value, lastName.value, age.value, email.value, password.value, listRoles
     )
     fetch(url, {
         method: 'POST',
@@ -114,7 +125,10 @@ formNew.addEventListener('submit', (e) => {
         },
         body: JSON.stringify({
             username: username.value,
-            age_of_birth: age_of_birth.value,
+            firstName: firstName.value,
+            lastName: lastName.value,
+            age: age.value,
+            email: email.value,
             password: password.value,
             roles: listRoles
         })
@@ -130,7 +144,10 @@ formNew.addEventListener('submit', (e) => {
 const modalEdit = new bootstrap.Modal(document.getElementById('modalEdit'))
 const editForm = document.getElementById('modalEdit')
 const usernameEdit = document.getElementById('usernameEdit')
+const firstNameEdit = document.getElementById('firstNameEdit')
+const lastNameEdit = document.getElementById('lastNameEdit')
 const ageEdit = document.getElementById('ageEdit')
+const emailEdit = document.getElementById('emailEdit')
 const passwordEdit = document.getElementById('passwordEdit')
 const rolesEdit = document.getElementById('rolesEdit')
 
@@ -155,7 +172,10 @@ on(document, 'click', '.btnEdit', e => {
         .catch(error => console.log(error))
     const getUserById = (user) => {
         usernameEdit.value = user.username
-        ageEdit.value = user.age_of_birth
+        firstNameEdit.value = user.firstName
+        lastName.value = user.lastName
+        ageEdit.value = user.age
+        emailEdit.value = user.email
         passwordEdit.value = ''
         rolesEdit.innerHTML = `
                                 <option value="${dbRoles[0].id}">${dbRoles[0].name}</option>
@@ -183,7 +203,10 @@ editForm.addEventListener('submit', (e) => {
         body: JSON.stringify({
             id: idForm,
             username: usernameEdit.value,
-            age_of_birth: ageEdit.value,
+            firstName: firstNameEdit.value,
+            lastName: lastNameEdit.value,
+            age: ageEdit.value,
+            email: emailEdit.value,
             password: passwordEdit.value,
             roles: listRoles
         })
@@ -200,7 +223,10 @@ const modalDelete = new bootstrap.Modal(document.getElementById('modalDelete'))
 const deleteForm = document.getElementById('modalDelete')
 const idDelete = document.getElementById('idDelete')
 const usernameDelete = document.getElementById('usernameDelete')
+const firstNameDelete = document.getElementById('firstNameDelete')
+const lastNameDelete = document.getElementById('lastNameDelete')
 const ageDelete = document.getElementById('ageDelete')
+const emailDelete = document.getElementById('emailDelete')
 const rolesDelete = document.getElementById('rolesDelete')
 
 on(document, 'click', '.btnDelete', e => {
@@ -215,7 +241,10 @@ on(document, 'click', '.btnDelete', e => {
     const getUserById = (user) => {
         idDelete.value = user.id
         usernameDelete.value = user.username
-        ageDelete.value = user.age_of_birth
+        firstNameDelete.value = user.firstName
+        lastNameDelete.value = user.lastName
+        ageDelete.value = user.age
+        emailDelete.value = user.email
         rolesDelete.innerHTML = `
                                     <option value="${dbRoles[0].id}">${dbRoles[0].name}</option>
                                     <option value="${dbRoles[1].id}">${dbRoles[1].name}</option>
