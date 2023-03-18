@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -104,11 +105,9 @@ public class User implements UserDetails {
 
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "conn",
+    @JoinTable(name = "conn",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public Set<Role> getRoles() {
@@ -130,7 +129,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return roles;
     }
 
     @Override

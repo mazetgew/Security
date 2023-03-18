@@ -16,13 +16,13 @@ public class Create {
     private final UserService userService;
     private final RoleService roleService;
 
-    @Autowired
+    //@Autowired
     public Create(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void createUsersAndRoles() {
         Role roleUser = new Role("ROLE_USER");
         Role roleAdmin = new Role("ROLE_ADMIN");
