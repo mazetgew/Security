@@ -7,7 +7,6 @@ import ru.kata.spring.boot_security.demo.services.UserService;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/api/admin")
 public class AdminRestController {
@@ -19,34 +18,30 @@ public class AdminRestController {
         this.userService = userService;
     }
 
-    @GetMapping()
+    @GetMapping
     public List<User> admin() {
         return userService.userList();
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable("id") Long id) {
-        User user = userService.findById(id);
-        return user;
+    public User id(@PathVariable("id") Long id) {
+        return userService.findById(id);
     }
 
-    @PostMapping()
+    @PostMapping
     public User add(@RequestBody User user) {
-        System.out.println("Пользователь добавлен");
         userService.add(user);
         return user;
     }
 
-    @PatchMapping()
+    @PatchMapping
     public User patch(@RequestBody User user) {
-        System.out.println("Пользователь обновлён");
         userService.update(user);
         return user;
     }
 
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable("id") Long id) {
-        System.out.println("Пользователь удалён");
         userService.deleteById(id);
         return String.format("User with ID = %d was deleted", id);
     }

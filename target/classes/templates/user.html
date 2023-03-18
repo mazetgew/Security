@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,7 +13,8 @@
 
 <header>
     <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
-        <div class="container-fluid me-auto" id="navbarInfo"></div>
+        <div class="container-fluid me-auto" id="navbarInfo">
+        </div>
     </nav>
 </header>
 
@@ -21,7 +23,7 @@
     <div class="p-0 col-2">
         <div class="nav flex-column nav-pills pt-4" aria-orientation="vertical">
             <a class="nav-link active" data-toggle="tab" href="#user-information-page"
-               aria-controls="v-pills-profile" aria-selected="false">User</a>
+               aria-controls="v-pills-profile" aria-selected="false"> User</a>
         </div>
     </div>
 
@@ -46,6 +48,9 @@
                                 <th scope="col">Roles</th>
                             </tr>
                             </thead>
+                            <tbody>
+
+                            </tbody>
                         </table>
                     </div>
                 </div>

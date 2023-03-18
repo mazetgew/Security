@@ -1,33 +1,33 @@
 const url = '/api/admin/users/'
 
-const dbRoles = [ {
-        id: 1,
-        name: "ROLE_USER"
-    },
+const dbRoles = [{
+    id: 1,
+    name: "ROLE_USER"
+},
     {
         id: 2,
         name: "ROLE_ADMIN"
     }]
 
+// + User info navbar
 const showNavbarInfo = (user) => {
     const navbarInfo = document.getElementById('navbarInfo')
-    navbarInfo.innerHTML = `
+    let result = `
                 <span class="navbar-brand">
-                    <strong>${user.username}</strong>
+                    <strong>${user.email}</strong>
                     with roles:
                     <span>${user.stringRoles}</span>
                 </span>
-                <form action="/logout" method="POST">
-                    <button type="submit" class="btn btn-dark">Logout</button>
-                </form>
+                <a class="btn btn-link text-secondary" href="/logout" role="button">Logout</a>
                 `
+    navbarInfo.innerHTML = result
 }
 fetch('/api/user/')
     .then(response => response.json())
     .then(data => showNavbarInfo(data))
     .catch(error => console.log(error))
 
-// Таблица
+// + All users info tab
 let usersInfo = ''
 const showUsers = (users) => {
     const container = document.querySelectorAll('tbody')[0]
@@ -40,7 +40,7 @@ const showUsers = (users) => {
                     <td>${user.lastName}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>       
-                    <td>${user.stringRoles}</td>   
+                    <td>${user.stringRoles}</td>    
                     <td class="text text-white"><a class="btnEdit btn btn-info">Edit</a></td>  
                     <td class="text text-white"><a class="btnDelete btn btn-danger">Delete</a></td>
                 </tr>
@@ -62,7 +62,7 @@ const reloadShowUsers = () => {
         })
 }
 
-// Информация пользователя
+// + User info tab
 let userInfo = ''
 const showUser = (user) => {
     const container = document.querySelectorAll('tbody')[1]
@@ -74,7 +74,7 @@ const showUser = (user) => {
                     <td>${user.lastName}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>       
-                    <td>${user.stringRoles}</td>   
+                    <td>${user.stringRoles}</td>  
                 </tr>
                 `
     container.innerHTML = userInfo
@@ -85,7 +85,7 @@ fetch('/api/user/')
     .catch(error => console.log(error))
 
 
-// Создание нового пользователя
+// про создание нового юзера
 const formNew = document.getElementById('newUserForm')
 const username = document.getElementById('username')
 const firstName = document.getElementById('firstName')
@@ -139,7 +139,7 @@ formNew.addEventListener('submit', (e) => {
     $('.nav-tabs a[href="#usersTable"]').tab('show')
 })
 
-// Редактирование пользователя
+// про редактирование юзера
 const modalEdit = new bootstrap.Modal(document.getElementById('modalEdit'))
 const editForm = document.getElementById('modalEdit')
 const usernameEdit = document.getElementById('usernameEdit')
@@ -217,7 +217,7 @@ editForm.addEventListener('submit', (e) => {
     modalEdit.hide()
 })
 
-// Удаление пользователя
+// про удаление юзера
 const modalDelete = new bootstrap.Modal(document.getElementById('modalDelete'))
 const deleteForm = document.getElementById('modalDelete')
 const idDelete = document.getElementById('idDelete')

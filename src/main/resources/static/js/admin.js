@@ -1,26 +1,26 @@
-const url = "/api/admin/"
+const url = '/api/admin/'
 
-const dbRoles = [ {
-        id: 1,
-        name: "ROLE_USER"
-    },
+const dbRoles = [{
+    id: 1,
+    name: "ROLE_USER"
+},
     {
         id: 2,
         name: "ROLE_ADMIN"
     }]
 
+// Navbar
 const showNavbarInfo = (user) => {
     const navbarInfo = document.getElementById('navbarInfo')
-    navbarInfo.innerHTML = `
+    let result = `
                 <span class="navbar-brand">
-                    <strong>${user.username}</strong>
+                    <strong>${user.email}</strong>
                     with roles:
-                    <span>${user.getStringRoles}</span>
+                    <span>${user.stringRoles}</span>
                 </span>
-                <form action="/logout" method="POST">
-                    <button type="submit" class="btn btn-dark">Logout</button>
-                </form>
+                <a class="btn btn-link text-secondary" href="/logout" role="button">Logout</a>
                 `
+    navbarInfo.innerHTML = result
 }
 fetch('/api/user/')
     .then(response => response.json())
@@ -40,7 +40,7 @@ const showUsers = (users) => {
                     <td>${user.lastName}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>       
-                    <td>${user.getStringRoles}</td>   
+                    <td>${user.stringRoles}</td>    
                     <td class="text text-white"><a class="btnEdit btn btn-info">Edit</a></td>  
                     <td class="text text-white"><a class="btnDelete btn btn-danger">Delete</a></td>
                 </tr>
@@ -62,7 +62,7 @@ const reloadShowUsers = () => {
         })
 }
 
-// Информация пользователя
+// Информация о себе
 let userInfo = ''
 const showUser = (user) => {
     const container = document.querySelectorAll('tbody')[1]
@@ -74,7 +74,7 @@ const showUser = (user) => {
                     <td>${user.lastName}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>       
-                    <td>${user.getStringRoles}</td>   
+                    <td>${user.stringRoles}</td>  
                 </tr>
                 `
     container.innerHTML = userInfo

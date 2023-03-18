@@ -1,18 +1,16 @@
-const url = "/api/user"
+const url = '/api/user/'
 
 const showNavbarInfoUser = (user) => {
-    let navbarInfo;
-    navbarInfo = document.getElementById('navbarInfo');
-    navbarInfo.innerHTML = `
+    const navbarInfo = document.getElementById('navbarInfo')
+    let result = `
                 <span class="navbar-brand">
-                    <strong>${user.username}</strong>
+                    <strong>${user.email}</strong>
                     with roles:
-                    <span>${user.roles.name}</span>
+                    <span>${user.stringRoles}</span>
                 </span>
-                <form action="/logout" method="POST">
-                    <button type="submit" class="btn btn-dark">Logout</button>
-                </form>
+                <a class="btn btn-link text-secondary" href="/logout" role="button">Logout</a>
                 `
+    navbarInfo.innerHTML = result
 }
 
 fetch(url)
@@ -31,7 +29,7 @@ const showUserInfo = (user) => {
                     <td>${user.lastName}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>       
-                    <td>${user.roles.name}</td>
+                    <td>${user.stringRoles}</td>  
                 </tr>
                 `
     container.innerHTML = userPageInfo
